@@ -8,7 +8,7 @@ use Leandroferreirama\PagamentoCnab240\Dominio\Excecoes\YamlException;
 use Leandroferreirama\PagamentoCnab240\Dominio\Transacoes\Transacao;
 use \Symfony\Component\Yaml\Yaml as YamlSymfony;
 
-class Yaml extends YamlSymfony
+class Yaml
 {
     /**
      * @var
@@ -34,7 +34,7 @@ class Yaml extends YamlSymfony
             throw new YamlException('Não localizei o arquivo de configuração do header do arquivo');
         };
 
-        return $this->validaInformacoes('header do arquivo', $this->parse(file_get_contents($arquivo)));
+        return $this->validaInformacoes('header do arquivo', YamlSymfony::parse(file_get_contents($arquivo)));
     }
 
     /**
@@ -49,7 +49,7 @@ class Yaml extends YamlSymfony
             throw new YamlException('Não localizei o arquivo de configuração do header do lote');
         }
 
-        return $this->validaInformacoes('header do lote', $this->parse(file_get_contents($arquivo)));
+        return $this->validaInformacoes('header do lote', YamlSymfony::parse(file_get_contents($arquivo)));
     }
 
     /**
@@ -70,7 +70,7 @@ class Yaml extends YamlSymfony
                 throw new YamlException("Não localizei o arquivo de configuração do segmento {$segmento}");
             }
 
-            $detalhes[] =  $this->validaInformacoes("Segmento {$segmento}", $this->parse(file_get_contents($arquivo)));
+            $detalhes[] =  $this->validaInformacoes("Segmento {$segmento}", YamlSymfony::parse(file_get_contents($arquivo)));
         }
         return $detalhes;
     }
@@ -87,7 +87,7 @@ class Yaml extends YamlSymfony
             throw new YamlException('Não localizei o arquivo de configuração do trailer do arquivo');
         }
 
-        return $this->validaInformacoes('trailer do arquivo', $this->parse(file_get_contents($arquivo)));
+        return $this->validaInformacoes('trailer do arquivo', YamlSymfony::parse(file_get_contents($arquivo)));
     }
 
     /**
@@ -102,7 +102,7 @@ class Yaml extends YamlSymfony
             throw new YamlException('Não localizei o arquivo de configuração do trailer do lote');
         }
 
-        return $this->validaInformacoes('trailer do lote', $this->parse(file_get_contents($arquivo)));
+        return $this->validaInformacoes('trailer do lote', YamlSymfony::parse(file_get_contents($arquivo)));
     }
 
     /**
@@ -117,7 +117,7 @@ class Yaml extends YamlSymfony
         if (!file_exists($nomeArquivo)){
             throw new YamlException("Arquivo de configuração {$segmento}.yml não encontrado em: $this->pasta");
         }
-        return $this->validaInformacoes($segmento, $this->parse(file_get_contents($nomeArquivo)));
+        return $this->validaInformacoes($segmento, YamlSymfony::parse(file_get_contents($nomeArquivo)));
     }
 
     /**
